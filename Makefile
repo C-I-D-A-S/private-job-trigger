@@ -1,4 +1,4 @@
-PKG = data_api
+PKG = src
 VERSION=$(shell awk '{match($$0,"__version__ = '\''(.*)'\''",a)}END{print a[1]}' $(PKG)/__version__.py)
 
 .PHONY: version init flake8 pylint lint test coverage clean
@@ -28,10 +28,13 @@ flake8:
 	pipenv run flake8 --max-line-length=120
 
 pylint:
-	pipenv run pylint scheduler --ignore=tests
+	pipenv run pylint $(PKG) --ignore=tests
 
 black:
 	pipenv run black $(PKG)
+
+mypy:
+	pipenv run mypy $(PKG)
 
 test:
 	pipenv run pytest --pep8

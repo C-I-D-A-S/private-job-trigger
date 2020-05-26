@@ -1,6 +1,6 @@
-# Python-Project-Template
+# Private Spark Trigger
 
-A startup template
+An API for trigger Spark Submit
 
 ## Getting Started
 
