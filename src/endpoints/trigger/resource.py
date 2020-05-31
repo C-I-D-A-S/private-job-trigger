@@ -5,6 +5,7 @@ Author: Po-Chun, Lu
 """
 import json
 import os
+import threading
 
 from flask_restful import Resource, reqparse
 from flask import current_app as app
@@ -48,13 +49,16 @@ class SparkTrigger(Resource):
         add_post_args(self.post_parser)
 
     @staticmethod
-    def _execute_cli(args):
-        command = get_spark_submit_command(args)
-        log_context("Request", {"spark_command": command})
+    def _execute_cli(command):
         os.system(command)
 
+    def _execute_thread(self, args):
+        command = get_spark_submit_command(args)
+        log_context("Request", {"spark_command": command})
+        threading.Thread(target=self._execute_cli, args=(command,)).start()
+
     def _post_operate(self, args):
-        self._execute_cli(args)
+        self._execute_thread(args)
 
     def post(self):
         """ main handler of post request """

@@ -5,6 +5,11 @@ Author: Po-Chun, Lu
 """
 import os
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 class Config:
     """Parent configuration class."""
