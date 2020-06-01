@@ -23,6 +23,7 @@ def get_spark_submit_command(args):
         --files /etc/hive/conf/hive-site.xml \
         --conf spark.hadoop.mapreduce.input.fileinputformat.input.dir.recursive=true \
         --conf spark.hive.mapred.supports.subdirectories=true \
+        --jars ~/spark_jobs/postgresql-42.2.5.jar\
         --num-executors {args.job_resources['executors']} \
         --executor-cores {args.job_resources['cpu']} \
         --executor-memory {args.job_resources['mem']}g \
